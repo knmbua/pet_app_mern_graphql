@@ -1,0 +1,21 @@
+import mongoose from 'mongoose';
+const { Schema, model } = mongoose;
+const PostSchema = new Schema({
+    title: {
+        type: String,
+        required: [true, 'You must provide a post title'],
+        minLength: [3, 'Your post title must be at least 3 characters in length']
+    },
+    body: {
+        type: String,
+        required: [true, 'You must provide a post message'],
+        minLength: [3, 'Your post body must be at least 3 characters in length']
+    },
+    pet: {
+        type: Schema.Types.ObjectId,
+        required: [true, 'You must attach the pet_id to the post'],
+        ref: 'Pet'
+    }
+});
+const Post = model('Post', PostSchema);
+export default Post;
