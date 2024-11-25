@@ -1,11 +1,12 @@
 import { Request, Response } from 'express';
+import { Types } from 'mongoose';
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
 import dotenv from 'dotenv';
 import { fileURLToPath } from 'url';
 import path from 'path';
 
-const { verify } = jwt;
+const { verify, sign } = jwt;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -18,6 +19,13 @@ if (process.env.NODE_ENV === 'production') {
 
 interface AuthenticatedRequest extends Request {
   user?: any;
+}
+
+export function createToken(user_id: Types.ObjectId) {
+  if (!process.env.JWT_SECRET) {
+    throw new Error('JWT_SECRET is not defined');
+  }
+  return sign({ user_id: user_id }, process.env.JWT_SECRET);
 }
 
 export const authenticate = async ({ req, res }: { req: AuthenticatedRequest; res: Response }) => {
