@@ -7,7 +7,7 @@ import Context from '../../interfaces/Context';
 import User from '../../models/User.js';
 
 import { errorHandler } from '../helpers/index.js';
-import { createToken } from '../../services/auth';
+import { createToken } from '../../services/auth.js';
 
 const auth_resolvers = {
   Query: {
