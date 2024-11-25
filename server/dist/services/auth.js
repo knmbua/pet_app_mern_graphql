@@ -1,8 +1,12 @@
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
 import dotenv from 'dotenv';
+import { fileURLToPath } from 'url';
+import path from 'path';
 const { verify } = jwt;
-dotenv.config();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 export const authenticate = async ({ req, res }) => {
     const pet_token = req.cookies?.pet_token;
     if (pet_token) {

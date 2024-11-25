@@ -56,6 +56,7 @@ const auth_resolvers = {
           user: user
         };
       } catch (error: any) {
+        console.log(error)
         const errorMessage = errorHandler(error);
 
         throw new GraphQLError(errorMessage);
