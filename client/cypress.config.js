@@ -1,7 +1,7 @@
 import { defineConfig } from "cypress";
 
 
-const is_prod = process.env.PORT === 'production';
+const is_prod = process.env.PORT;
 
 export default defineConfig({
   e2e: {
