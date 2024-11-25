@@ -1,5 +1,3 @@
-import jwt from 'jsonwebtoken';
-import { Types } from 'mongoose';
 import { GraphQLError } from 'graphql';
 
 
@@ -9,15 +7,7 @@ import Context from '../../interfaces/Context';
 import User from '../../models/User.js';
 
 import { errorHandler } from '../helpers/index.js';
-
-const { sign } = jwt;
-
-function createToken(user_id: Types.ObjectId) {
-  if (!process.env.JWT_SECRET) {
-    throw new Error('JWT_SECRET is not defined');
-  }
-  return sign({ user_id: user_id }, process.env.JWT_SECRET);
-}
+import { createToken } from '../../services/auth.js';
 
 const auth_resolvers = {
   Query: {
@@ -56,6 +46,7 @@ const auth_resolvers = {
           user: user
         };
       } catch (error: any) {
+        console.log(error)
         const errorMessage = errorHandler(error);
 
         throw new GraphQLError(errorMessage);

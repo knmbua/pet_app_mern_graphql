@@ -1,5 +1,15 @@
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-dotenv.config();
+import path from 'path';
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+if (process.env.PORT) {
+    dotenv.config();
+} else {
+    dotenv.config({ path: path.resolve(__dirname, '../../.env') });
+}
+
 mongoose.connect(process.env.MONGODB_URL || 'mongodb://127.0.0.1:27017/pet_social_network_db');
 export default mongoose.connection;

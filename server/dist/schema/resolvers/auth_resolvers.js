@@ -42,6 +42,7 @@ const auth_resolvers = {
                 };
             }
             catch (error) {
+                console.log(error);
                 const errorMessage = errorHandler(error);
                 throw new GraphQLError(errorMessage);
             }
