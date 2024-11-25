@@ -9,7 +9,11 @@ const { verify } = jwt;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-dotenv.config({ path: path.resolve(__dirname, '../../.env') });
+if (process.env.NODE_ENV === 'production') {
+  dotenv.config();
+} else {
+  dotenv.config({ path: path.resolve(__dirname, '../../.env') });
+}
 
 
 interface AuthenticatedRequest extends Request {
